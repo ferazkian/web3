@@ -1,0 +1,15 @@
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('recommendation')
+root = tree.getroot()
+
+for recommendationChild in root.iter('LIST_RECOMMENDATION'):
+    print('Recommendation ID:',recommendationChild[0].text)
+    i = 1
+    for listbound in recommendationChild.findall('LIST_BOUND'):
+        print (i, '. segment')
+        for listflight in listbound.findall('LIST_FLIGHT'):
+            print ('Flight ID: ', listflight.find('FLIGHT_ID').text)
+        i = i + 1
+    for farefamily in recommendationChild.findall('FARE_FAMILY'):
+        print ('Fare family: ', farefamily.find('SHORT_NAME').text, '\n')
